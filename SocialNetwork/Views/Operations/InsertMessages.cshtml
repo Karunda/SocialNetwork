@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SocialNetwork.Models.UserDetailsModel>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
+}
+
+    
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li>@Html.ActionLink("Home", "Index", "Home")</li>
+              <li>@Html.ActionLink("Insert Messages", "InsertMessages", "Operations")</li>
+              <li>@Html.ActionLink("Read Messages", "GetMessages", "Operations")</li>        
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          <div class="hero-unit">
+             @using (Html.BeginForm("InsertMessageToDB", "Operations", FormMethod.Get, new { enctype = "multipart/form-data" }))
+                                            {
+                                                @Html.ValidationSummary(true)
+               
+                                                            <textarea style="width:50%" id="data" name="data" >message</textarea>
+                                                            <br />
+                                                            <select name="toid" id="toid">
+                                                                @foreach (var item in Model)
+                                                                {
+                                                                    <option value=@item.UserId >@item.FirstName @item.LastName</option>
+                                                                }
+                                                            </select>
+                                                            @Html.ValidationMessage("CustomError")
+                                                            <br>
+                                                            <input type="submit" value="Send message" />
+                          
+                                            }
+              
+
+               
+          </div>
+          
+        </div><!--/span-->
+      </div><!--/row-->

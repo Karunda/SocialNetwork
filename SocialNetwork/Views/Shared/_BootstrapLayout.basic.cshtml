@@ -1,0 +1,70 @@
+@using System.Web.Optimization
+@using BootstrapSupport
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>@ViewBag.Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="@Styles.Url("~/content/css")" rel="stylesheet"/>
+        @RenderSection("head", required: false)
+        @Html.Partial("_html5shiv")
+        @* favicons and touch icons go here *@
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="/Home/Index" title="Home">Social Network</a>         
+                    <ul class="nav navbar-nav pull-right">
+                        <li><form class="navbar-form" role="search" method="post" action="/Operations/SearchFriends">
+                    <div class="input-append">
+                        <input type="text" class="form-control" placeholder="Search" name="searchstring" id="searchstring">                           
+                        <button class="btn btn-default" type="submit"><i class="icon-search"></i></button>
+                                    
+                    </div>
+                    </form></li>
+
+                      <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                      <li>@Html.ActionLink("Profile", "Profile", "Operations")</li> 
+                      <li>@Html.ActionLink("Notif", "Notifications", "Operations")</li>        
+
+                                            @if (Request.IsAuthenticated) {
+                        <text>
+                            Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                                @Html.AntiForgeryToken()
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                            }
+                                                </text>
+                                            } else {
+                        
+                            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                       
+                    }
+                    </ul>
+                    <div class="nav-collapse collapse">
+                    </div>                    
+                </div>
+            </div>
+        </div>        
+        <div class="container">
+            @Html.Partial("_alerts")
+            @Html.Partial("_validationSummary")
+            @RenderBody()   
+            <hr>
+            <footer>
+                <p>&copy; Social Network @System.DateTime.Now.ToString("yyyy")</p>
+            </footer> 
+        </div>
+         @Scripts.Render("~/js")
+         @RenderSection("Scripts", required: false)
+    </body>
+</html>
+

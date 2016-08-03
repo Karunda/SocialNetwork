@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SocialNetwork.Models.UserDetailsModel>
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
+}
+
+     <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li>@Html.ActionLink("Home", "Index", "Home")</li>
+              <li>@Html.ActionLink("Insert Messages", "InsertMessages", "Operations")</li>
+              <li>@Html.ActionLink("Read Messages", "GetMessages", "Operations")</li>      
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span7">
+          <div class="hero-unit">
+              
+
+              
+              <table>
+              @foreach (var item in Model) {
+
+                <tr>
+                    <td class="table-striped"><img src="data:image/png;base64,@Convert.ToBase64String(item.ProfilePic,0,item.ProfilePic.Length)" width="100" /></td>
+                    <td>| @item.FirstName @item.LastName</td><td><a href="@Url.Action("InsertFriendRequest", "Operations", new { id = item.UserId })">add friend</a></td>
+                    <td>|<a href="@Url.Action("SendMessage", "Operations", new { id = item.UserId })">send message</a></td>
+                </tr>
+
+                }
+                  </table>
+          </div>          
+        </div><!--/span-->
+      </div><!--/row-->

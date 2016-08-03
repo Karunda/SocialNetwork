@@ -1,0 +1,32 @@
+﻿@model IEnumerable<SocialNetwork.Models.MessagesModel>
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
+}
+
+     <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li>@Html.ActionLink("Home", "Index", "Home")</li>
+              <li>@Html.ActionLink("Insert Messages", "InsertMessages", "Operations")</li>
+              <li>@Html.ActionLink("Read Messages", "GetMessages", "Operations")</li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span7">
+          <div class="hero-unit">
+              
+
+              
+              @foreach (var item in Model) {
+
+                <div>
+                        <h6>@item.datecreated by @item.fromname</h6>
+                        @item.data
+                    </div>
+                  <hr />
+                }
+          </div>          
+        </div><!--/span-->
+      </div><!--/row-->

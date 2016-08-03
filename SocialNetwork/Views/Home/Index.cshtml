@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SocialNetwork.Models.UpdatesModel>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
+}
+
+    
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li>@Html.ActionLink("Home", "Index", "Home")</li>
+              <li>@Html.ActionLink("Insert Messages", "InsertMessages", "Operations")</li>
+              <li>@Html.ActionLink("Read Messages", "GetMessages", "Operations")</li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          <div class="hero-unit">
+             @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.ValidationSummary(true)
+               
+                            <textarea style="width:100%" id="data" name="data" >update status</textarea>
+                            @Html.ValidationMessage("CustomError")
+                            <br>
+                            <input type="submit" value="post" />
+                          
+            }
+                          
+                @foreach (var item in Model) {
+                    <div>
+                        <h6>@item.datecreated by @item.updatename</h6>
+                        @item.data
+                        <div style="background-color:silver">
+                        <h6>comments</h6>
+                                      @if (item.comments != null)
+                                      {
+                                        foreach (var cm in item.comments) {
+                                            <div>
+                                                <h6>@cm.datecreated by @cm.commentsname</h6>
+                                                @cm.data
+                                            </div>             
+
+                                        }
+                                      }
+
+                                         @using (Html.BeginForm("InsertComment", "Home", FormMethod.Get, new { enctype = "multipart/form-data" }))
+                                            {
+                                                @Html.ValidationSummary(true)
+               
+                                                            <textarea style="width:50%" id="commentdata" name="commentdata" >comment</textarea>
+                                                            <input type="text" class="hidden" value=@item.updateid name="updateid" id="updateid">  
+                                                            @Html.ValidationMessage("CustomError")
+                                                            <br>
+                                                            <input type="submit" value="comment" />
+                          
+                                            }
+                            </div>
+                    </div>
+                    <hr/>
+                
+
+                }
+
+               
+          </div>
+          
+        </div><!--/span-->
+      </div><!--/row-->

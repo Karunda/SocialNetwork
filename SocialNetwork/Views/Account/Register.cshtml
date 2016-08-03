@@ -1,0 +1,32 @@
+﻿@model SocialNetwork.Models.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Sign Up</legend>
+        <table>
+            <tr><td>@Html.LabelFor(m => m.UserName)</td><td>@Html.TextBoxFor(m => m.UserName)</td><td></td></tr>
+            <tr><td>@Html.LabelFor(m => m.Password)</td><td>@Html.PasswordFor(m => m.Password)</td><td></td></tr>
+            <tr><td>@Html.LabelFor(m => m.ConfirmPassword)</td><td>@Html.PasswordFor(m => m.ConfirmPassword)</td><td></td></tr>
+            <tr><td>@Html.LabelFor(m => m.FirstName)</td><td>@Html.TextBoxFor(m => m.FirstName)</td><td></td></tr>
+            <tr><td>@Html.LabelFor(m => m.LastName)</td><td>@Html.TextBoxFor(m => m.LastName)</td><td></td></tr>
+            <tr><td>@Html.LabelFor(m => m.About)</td><td>@Html.TextBoxFor(m => m.About)</td><td></td></tr>
+            <tr><td>@Html.LabelFor(m => m.Gender)</td><td>@Html.TextBoxFor(m => m.Gender)</td><td></td></tr>
+            <tr><td>@Html.LabelFor(m => m.DateOfBirth)</td><td>@Html.TextBoxFor(m => m.DateOfBirth)</td><td></td></tr>
+      
+
+
+        
+     </table>
+        <input type="submit" value="Register" />
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

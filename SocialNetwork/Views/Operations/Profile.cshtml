@@ -1,0 +1,49 @@
+﻿@model SocialNetwork.Models.UserDetailsModel
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
+}
+
+     <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li>@Html.ActionLink("Home", "Index", "Home")</li>
+              <li>@Html.ActionLink("Insert Messages", "InsertMessages", "Operations")</li>
+              <li>@Html.ActionLink("Read Messages", "GetMessages", "Operations")</li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span7">
+          <div class="hero-unit">
+              
+
+              <img src="data:image/png;base64,@Convert.ToBase64String(ViewBag.Image,0,ViewBag.Image.Length)" width="100" />
+               <h5>Edit Profile Picture</h5>
+            @using (Html.BeginForm("Upload", "Operations", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.ValidationSummary(true)
+                <table>
+                    <tr>
+                        <td>
+                            @Html.TextBoxFor(m=> m.File, new{type="file"})
+                            @Html.ValidationMessage("CustomError")
+                        </td>
+                        <td>
+                            <input type="submit" value="Upload" />
+                        </td>
+                    </tr>
+                </table>
+            }
+                         <table>
+
+                <tr><td>@Html.LabelFor(m => m.FirstName)</td><td>@Model.FirstName</td><td></td></tr>
+                <tr><td>@Html.LabelFor(m => m.LastName)</td><td>@Model.LastName</td><td></td></tr>
+                <tr><td>@Html.LabelFor(m => m.About)</td><td>@Model.About</td><td></td></tr>
+                <tr><td>@Html.LabelFor(m => m.Gender)</td><td>@Model.Gender</td><td></td></tr>
+                <tr><td>@Html.LabelFor(m => m.DateOfBirth)</td><td>@Model.DateOfBirth</td><td></td></tr>   
+        
+            </table>
+          </div>          
+        </div><!--/span-->
+      </div><!--/row-->
